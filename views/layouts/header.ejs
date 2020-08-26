@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="container flex space-between align-center">
+        <h2>
+          <a href="#">Decart - Explore Unexplored</a>
+        </h2>
+        <form action="/" method="GET">
+          <div class="form-group flex align-center">
+            <input
+              class="search-product"
+              type="text"
+              name="product"
+              placeholder="Search products"
+            />
+            <button class="btn btn-search" type="submit">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-search"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#2c3e50"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <circle cx="10" cy="10" r="7" />
+                <line x1="21" y1="21" x2="15" y2="15" />
+              </svg>
+            </button>
+          </div>
+        </form>
+        <div>
+          <a class="btn btn-login" href="/users/login">Login</a>
+          <a class="btn btn-register" href="/users/register">Register</a>
+        </div>
+      </nav>
+    </header>
+

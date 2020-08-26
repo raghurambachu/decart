@@ -11,7 +11,7 @@
     />
   </head>
   <body class="register flex flex-col align-center justify-center">
-    <% if(errors){ %>
+    <% if(errors && errors.length > 0){ %>
     <ul class="errors">
       <% errors.forEach((error,index) => { %>
       <li class="error"><span><%= (index + 1) %>.</span> <%= error %></li>
@@ -24,7 +24,10 @@
         Sign up with
       </h3>
       <div>
-        <a class="btn btn-google flex align-center space-between" href="">
+        <a
+          class="btn btn-google flex align-center space-between"
+          href="/users/auth/google"
+        >
           <span class="btn-icon">
             <img width="16" src="/images/icons/google.svg" alt="Google icon" />
           </span>

@@ -11,7 +11,7 @@
     />
   </head>
   <body class="login flex align-center justify-center">
-    <% if(errors){ %>
+    <% if(errors && errors.length > 0){ %>
     <ul class="errors">
       <% errors.forEach((error,index) => { %>
       <li class="error"><span><%= (index + 1) %>.</span> <%= error %></li>
@@ -20,7 +20,7 @@
 
     <% } %>
     <div></div>
-    <% if(msg){ %>
+    <% if(msg && msg.length > 0){ %>
     <div>
       <p class="msg"><%= msg %></p>
     </div>
@@ -30,7 +30,10 @@
         Sign in with
       </h3>
       <div>
-        <a class="btn btn-google flex align-center space-between" href="">
+        <a
+          class="btn btn-google flex align-center space-between"
+          href="/users/auth/google"
+        >
           <span class="btn-icon">
             <img width="16" src="/images/icons/google.svg" alt="Google icon" />
           </span>
@@ -41,7 +44,7 @@
       <h3>
         Or sign in with credentials
       </h3>
-      <form class="login-form" action="/">
+      <form class="login-form" action="/users/login" method="POST">
         <div class="form-group">
           <label for="email">EMAIL</label>
           <input type="email" id="email" name="email" placeholder="Email" />

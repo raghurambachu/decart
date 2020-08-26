@@ -5,6 +5,7 @@ const randomize = require("randomatic");
 const {
   transporter,
   sendCodeOnUserRegister,
+  sendSuccessfulRegistrationMessage,
 } = require("../services/nodemailer");
 
 const userSchema = new Schema(
@@ -31,7 +32,6 @@ const userSchema = new Schema(
     },
     mobile: {
       type: String,
-      unique: true,
       validate: {
         validator: function (v) {
           return /\d{10}/.test(v);
@@ -110,8 +110,10 @@ userSchema.pre("save", async function (next) {
   let cart = {};
   cart.userId = userId;
 
-  //   Generate Code
-  this.code = randomize("Aa0", 6);
+  if (this.provider.includes("local")) {
+    //   Generate Code
+    this.code = randomize("Aa0", 6);
+  }
   try {
     // Create Cart
     cart = await Cart.create(cart);
@@ -124,7 +126,12 @@ userSchema.pre("save", async function (next) {
 
 userSchema.post("save", async function (user, next) {
   // Need to Send Email
-  const mailOptions = sendCodeOnUserRegister(user);
+  let mailOptions;
+  if (user.provider.includes("local")) {
+    mailOptions = sendCodeOnUserRegister(user);
+  } else {
+    mailOptions = sendSuccessfulRegistrationMessage(user);
+  }
   try {
     const sendMail = await transporter.sendMail(mailOptions);
     next();

@@ -1,0 +1,63 @@
+<%- include("../layouts/header.ejs") %>
+
+<section class="verify flex justify-center align-center">
+    <% if(errors && errors.length > 0){ %>
+        <ul class="errors">
+          <% errors.forEach((error,index) => { %>
+          <li class="error"><span><%= (index + 1) %>.</span> <%= error %></li>
+          <% }) %>
+        </ul>
+        <% } %>
+  <form action="/users/verify/<%= userId %>" method="POST">
+    <div class="form-group">
+      <label for="mobile">Mobile Number</label>
+      <input
+        type="text"
+        placeholder="10 Digit Mobile No."
+        class="mobile"
+        name="mobile"
+        id="mobile"
+        autofocus
+      />
+    </div>
+    <div class="form-group">
+      <div id="divOuter">
+        <span>6 Digit Verification Code</span>
+        <div id="divInner">
+          <input name="code" class="partitioned" type="text" maxlength="6" />
+        </div>
+      </div>
+    </div>
+    <div class="resend-code">
+      <a class="resend-link" href="/users/resend/<%= userId %>">Resend Code</a>
+    </div>
+    <button class="btn btn-verify" type="submit">Verify Code</button>
+  </form>
+</section>
+<script>
+  var obj = document.querySelector(".partitioned");
+  obj.addEventListener("keydown", stopCarret);
+  obj.addEventListener("keyup", stopCarret);
+
+  function stopCarret() {
+    if (obj.value.length > 5) {
+      setCaretPosition(obj, 5);
+    }
+  }
+
+  function setCaretPosition(elem, caretPos) {
+    if (elem != null) {
+      if (elem.createTextRange) {
+        var range = elem.createTextRange();
+        range.move("character", caretPos);
+        range.select();
+      } else {
+        if (elem.selectionStart) {
+          elem.focus();
+          elem.setSelectionRange(caretPos, caretPos);
+        } else elem.focus();
+      }
+    }
+  }
+</script>
+<%- include("../layouts/footer.ejs") %>

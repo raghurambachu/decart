@@ -1,4 +1,4 @@
-let { body, validationResult } = require("express-validator");
+let { body, param, validationResult } = require("express-validator");
 
 function userRegisterValidationRules() {
   return [
@@ -26,7 +26,57 @@ const validateRegisterForm = (req, res, next) => {
   }
 };
 
+// Check whether Id is a valid MongoId in route for verify user code.
+function verifyUserIdRules() {
+  return [
+    param(
+      "userId",
+      "Is not a valid link. Please click on the link sent to your registered mail"
+    ).isMongoId(),
+  ];
+}
+
+function validateVerifyUserIdRules(req, res, next) {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    return next();
+  } else {
+    const extractErrors = [];
+    errors.array().map((err) => extractErrors.push(err.msg));
+    req.flash("errors", extractErrors);
+    res.redirect("/users/login");
+  }
+}
+
+function verifyUserFormRules() {
+  return [
+    param(
+      "userId",
+      "Is not a valid link. Click on valid link sent to your email"
+    ).isMongoId(),
+    body("mobile", "Mobile should be a valid 10 digit Number").isMobilePhone("en-IN"),
+    body("code", "Code should be of 6 digits.").isLength({ min: 6, max: 6 }),
+  ];
+}
+
+function validateVerifyUserFormRules(req, res, next) {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    return next();
+  } else {
+
+    const extractErrors = [];
+    errors.array().map((err) => extractErrors.push(err.msg));
+    req.flash("errors", extractErrors);
+    res.redirect(`/users/verify/${req.params.userId}`);
+  }
+}
+
 module.exports = {
   userRegisterValidationRules,
   validateRegisterForm,
+  verifyUserIdRules,
+  validateVerifyUserIdRules,
+  verifyUserFormRules,
+  validateVerifyUserFormRules,
 };
