@@ -1,0 +1,27 @@
+header {
+  background: $secondary;
+  padding: 0.8rem;
+  h2 {
+    font-weight: 500;
+  }
+  .search-product {
+    padding: 0.5rem 1rem;
+    width: 350px;
+  }
+  .btn-search {
+    background: white;
+    color: $secondary;
+    padding: 0.3rem;
+    margin-left: -0.5%;
+    cursor: pointer;
+  }
+  .btn-login,
+  .btn-register {
+    background: $primary;
+    color: $secondary;
+    padding: 0.4rem 1rem;
+    margin-left: 1rem;
+    border-radius: 0.2rem;
+    font-size: 0.95rem;
+  }
+}

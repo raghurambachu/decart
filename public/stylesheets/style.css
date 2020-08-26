@@ -1,0 +1,290 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol,
+ul {
+  list-style: none; }
+
+blockquote,
+q {
+  quotes: none; }
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box; }
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  background: #f1f3f6; }
+
+a {
+  color: whitesmoke;
+  text-decoration: none; }
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto; }
+
+.flex {
+  display: flex; }
+
+.flex-col {
+  flex-direction: column; }
+
+.space-between {
+  justify-content: space-between; }
+
+.justify-center {
+  justify-content: center; }
+
+.align-center {
+  align-items: center; }
+
+input {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  outline: 0; }
+
+.btn {
+  background: none;
+  outline: 0;
+  border: 0;
+  font-weight: 500;
+  cursor: pointer; }
+
+header {
+  background: #3a414e;
+  padding: 0.8rem; }
+  header h2 {
+    font-weight: 500; }
+  header .search-product {
+    padding: 0.5rem 1rem;
+    width: 350px; }
+  header .btn-search {
+    background: white;
+    color: #3a414e;
+    padding: 0.3rem;
+    margin-left: -0.5%;
+    cursor: pointer; }
+  header .btn-login,
+  header .btn-register {
+    background: #f1f3f6;
+    color: #3a414e;
+    padding: 0.4rem 1rem;
+    margin-left: 1rem;
+    border-radius: 0.2rem;
+    font-size: 0.95rem; }
+
+.register,
+.login {
+  background: #3a414e;
+  height: 100vh; }
+  .register .register-section,
+  .register .login-section,
+  .login .register-section,
+  .login .login-section {
+    background: #f1f3f6;
+    width: 360px;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
+  .register h3,
+  .login h3 {
+    font-size: 0.85rem;
+    padding: 0.75rem 0; }
+  .register .hr,
+  .login .hr {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid black; }
+  .register .register-form,
+  .register .login-form,
+  .login .register-form,
+  .login .login-form {
+    padding: 1rem 0; }
+  .register label,
+  .login label {
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 500; }
+  .register input,
+  .login input {
+    display: block;
+    width: 100%;
+    border: 0;
+    outline: 0;
+    padding: 0.8rem 2rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
+  .register .btn-register,
+  .register .btn-login,
+  .login .btn-register,
+  .login .btn-login {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-weight: 700;
+    background: #000000;
+    color: #f1f3f6;
+    border-radius: 0.25rem;
+    margin: 0.5rem 0; }
+  .register .btn-google,
+  .login .btn-google {
+    color: #000000;
+    background: white;
+    padding: 0.4rem 1rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
+    .register .btn-google .btn-icon,
+    .login .btn-google .btn-icon {
+      margin-right: 0.75rem; }
+    .register .btn-google .btn-icon + span,
+    .login .btn-google .btn-icon + span {
+      font-size: 0.95rem; }
+    .register .btn-google:hover,
+    .login .btn-google:hover {
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.1); }
+  .register .errors,
+  .login .errors {
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px; }
+  .register .error,
+  .login .error {
+    padding: 0.15rem 2rem;
+    background: #f1f3f6;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    transition: ease-in 250ms; }
+  .register .msg,
+  .login .msg {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #f1f3f6; }
+
+/*# sourceMappingURL=style.css.map */

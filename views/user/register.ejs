@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="register flex flex-col align-center justify-center">
+    <% if(errors){ %>
+    <ul class="errors">
+      <% errors.forEach((error,index) => { %>
+      <li class="error"><span><%= (index + 1) %>.</span> <%= error %></li>
+      <% }) %>
+    </ul>
+
+    <% } %>
+    <section class="register-section flex flex-col justify-center align-center">
+      <h3>
+        Sign up with
+      </h3>
+      <div>
+        <a class="btn btn-google flex align-center space-between" href="">
+          <span class="btn-icon">
+            <img width="16" src="/images/icons/google.svg" alt="Google icon" />
+          </span>
+          <span>GOOGLE</span>
+        </a>
+      </div>
+      <div class="hr"></div>
+      <h3>
+        Or sign up with credentials
+      </h3>
+      <form class="register-form" action="/users/register" method="POST">
+        <div class="form-group">
+          <label for="username">USERNAME</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            value="<%= username ? username : '' %>"
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">EMAIL</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            value="<%= email ? email : '' %>"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">PASSWORD</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            value="<%= password ? password : '' %>"
+          />
+        </div>
+        <button class="btn btn-register" type="submit">Register</button>
+      </form>
+    </section>
+  </body>
+</html>

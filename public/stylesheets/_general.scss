@@ -1,0 +1,56 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family;
+  font-size: 18px;
+  line-height: 1.5;
+  background: $primary;
+}
+
+a {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+input {
+  font-family: $font-family;
+  font-size: 1rem;
+  outline: 0;
+}
+
+.btn {
+  background: none;
+  outline: 0;
+  border: 0;
+  font-weight: 500;
+  cursor: pointer;
+}
