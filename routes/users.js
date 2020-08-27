@@ -3,6 +3,8 @@ const passport = require("passport");
 
 var router = express.Router();
 const User = require("../models/User");
+const Vendor = require("../models/Vendor");
+const Admin = require("../models/Admin");
 
 const auth = require("../middlewares/auth");
 const {
@@ -35,6 +37,15 @@ router.post(
     const { username, email, password } = user;
     // search if user is already registered.
     try {
+      const admin = await Admin.findOne({ email });
+      const vendor = await Vendor.findOne({ email });
+      if (admin || vendor) {
+        req.flash(
+          "errors",
+          `${email} is already registered. Try with different email id.`
+        );
+        return res.redirect("/users/register");
+      }
       const user = await User.findOne({ email });
       if (user) {
         const provider = user.provider;
@@ -102,19 +113,28 @@ router.get("/login", function (req, res, next) {
   });
 });
 
-router.post("/login", function (req, res, next) {
-  passport.authenticate("local", function (err, user, info) {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      req.flash("message", info.message);
-      return res.redirect("/users/login");
-    } else {
-      return res.redirect("/");
-    }
-  })(req, res, next);
-});
+router.post(
+  "/login",
+  passport.authenticate("local", { failureRedirect: "/users/login" }),
+  function (req, res) {
+    console.log(req.user);
+    res.redirect("/users/");
+  }
+);
+
+// router.post("/login", function (req, res, next) {
+//   passport.authenticate("local", function (err, user, info) {
+//     if (err) {
+//       return next(err);
+//     }
+//     if (!user) {
+//       req.flash("message", info.message);
+//       return res.redirect("/users/login");
+//     } else {
+//       return res.redirect("/");
+//     }
+//   })(req, res, next);
+// });
 
 router.get(
   "/verify/:userId",

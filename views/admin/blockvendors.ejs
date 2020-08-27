@@ -1,0 +1,54 @@
+<%- include("layouts/header.ejs") %>
+<div class="admin-dashboard block-users">
+  <% if(vendors && vendors.length) { %>
+  <table class="table table-striped">
+    <legend>Block Vendors</legend>
+    <thead>
+      <tr>
+        <th scope="col">Sr. No</th>
+        <th scope="col">Display Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Joined On</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% vendors.forEach((vendor,index) => { %>
+      <tr>
+        <th scope="row"><%= index + 1 %></th>
+        <td><%= vendor.displayName %></td>
+        <td><%= vendor.email %></td>
+        <td><%= vendor.createdAt %></td>
+        <td>
+          <% if(vendor.isBlocked) { %>
+          <span>Blocked</span>
+          <% } else { %>
+          <span>Active</span>
+          <% } %>
+        </td>
+        <td>
+          <% if(!vendor.isBlocked) { %>
+          <a
+            class="btn-action btn-disapprove"
+            href="/admins/vendors/block/<%= vendor._id %>"
+            >Block</a
+          >
+          <% } else { %>
+          <a
+            class="btn-action btn-approve"
+            href="/admins/vendors/unblock/<%= vendor._id %>"
+            >Unblock</a
+          >
+          <% } %>
+        </td>
+      </tr>
+      <% } ) %>
+    </tbody>
+  </table>
+  <% } else { %>
+  <p>No vendors to Block</p>
+  <% } %>
+</div>
+
+<%- include("layouts/footer.ejs") %>

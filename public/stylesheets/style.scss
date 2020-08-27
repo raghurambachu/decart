@@ -3,78 +3,23 @@
 @import "general";
 @import "layouts/header";
 @import "login";
+@import "verify";
 
-.verify {
-  height: 100vh;
-  overflow-y: hidden;
-  form {
-    max-width: 300px;
-    text-align: left;
-  }
-  .partitioned {
-    padding-left: 15px;
-    letter-spacing: 42px;
-    border: 0;
-    background-image: linear-gradient(
-      to left,
-      black 70%,
-      rgba(255, 255, 255, 0) 0%
-    );
-    background-position: bottom;
-    background-size: 50px 2px;
-    background-repeat: repeat-x;
-    background-position-x: 35px;
-    width: 330px;
-    min-width: 330px;
-    padding: 0.75rem;
-  }
-  #divInner {
-    left: 0;
-    position: sticky;
-  }
-
-  #divOuter {
-    width: 290px;
-    overflow: hidden;
-  }
-  .resend-link {
-    color: $secondary;
-    font-size: 0.8rem;
-    display: inline-block;
-    margin-top: 1rem;
-    font-weight: 700;
-  }
-  .btn-verify {
-    width: 100%;
-    background: $secondary;
-    color: $primary;
-    margin: 0.75rem 0;
-    padding: 0.75rem;
+.admin-dashboard {
+  .btn-action {
     font-weight: bold;
-    font-size: 1rem;
-    width: 96%;
+    padding: 0.35rem;
+    background: rgba($secondary, 0.2);
+    text-decoration: none;
     &:hover {
-      box-shadow: 0 2px 3px $primary;
-      transform: scale(1.015);
-      transition: transform ease-out 350ms;
+      transform: scale(1.1);
+      transition: transform ease-in-out 250ms;
     }
   }
-  label,
-  input {
-    display: inline-block;
-    width: 96%;
+  .btn-approve {
+    color: green;
   }
-  .mobile {
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-  }
-  .errors{
-    position: absolute;
-    top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    .error{
-      color: black;
-    }
+  .btn-disapprove {
+    color: tomato;
   }
 }

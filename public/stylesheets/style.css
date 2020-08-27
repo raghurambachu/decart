@@ -172,6 +172,53 @@ input {
   font-weight: 500;
   cursor: pointer; }
 
+.sidebar-gap {
+  display: grid;
+  grid-template-columns: 16vw auto; }
+
+.sidebar {
+  position: fixed;
+  width: 16vw;
+  min-height: 100vh;
+  background: #3a414e;
+  z-index: 1;
+  font-size: 1.1rem;
+  padding: 1rem 1.5rem; }
+
+.sd-link-item,
+.sd-list-item {
+  color: #f1f3f6; }
+
+.sd-list-item {
+  margin: 0.5rem 0; }
+
+.fa-gap {
+  margin-right: 0.55rem; }
+
+.main {
+  padding: 2.25rem 2.5rem;
+  grid-column-start: 2;
+  position: relative; }
+
+.display-details {
+  position: absolute;
+  top: 0.5%;
+  right: 2.5%; }
+
+.logout {
+  align-items: center; }
+
+.logout > * {
+  margin-left: 1rem; }
+
+.dashboard-container {
+  margin-left: 16vw;
+  padding-top: 1rem; }
+
+.sd-link-item:hover {
+  color: rgba(241, 243, 246, 0.5);
+  text-decoration: none; }
+
 header {
   background: #3a414e;
   position: absolute;
@@ -196,6 +243,53 @@ header {
     margin-left: 1rem;
     border-radius: 0.2rem;
     font-size: 0.95rem; }
+  header .head-links {
+    color: #f1f3f6;
+    margin-left: 2.5rem; }
+  header .cart {
+    position: relative;
+    display: inline-block; }
+  header .quantity {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #3a414e;
+    background: #f1f3f6;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    top: -35%;
+    left: -65%;
+    padding: 0.35rem;
+    font-size: 1rem; }
+  header .dropbtn {
+    background-color: #3a414e;
+    color: #f1f3f6;
+    padding: 16px;
+    font-size: 16px;
+    border: none; }
+  header .dropdown {
+    position: relative;
+    display: inline-block; }
+  header .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); }
+  header .dropdown-content a {
+    color: #3a414e;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 1rem; }
+  header .dropdown-content a:hover {
+    background-color: #f1f1f1; }
+  header .dropdown:hover .dropdown-content {
+    display: block; }
+  header .dropdown:hover .dropbtn {
+    background-color: rgba(241, 243, 246, 0.1); }
 
 .register,
 .login {
@@ -346,5 +440,20 @@ header {
     transform: translateX(-50%); }
     .verify .errors .error {
       color: black; }
+
+.admin-dashboard .btn-action {
+  font-weight: bold;
+  padding: 0.35rem;
+  background: rgba(58, 65, 78, 0.2);
+  text-decoration: none; }
+  .admin-dashboard .btn-action:hover {
+    transform: scale(1.1);
+    transition: transform ease-in-out 250ms; }
+
+.admin-dashboard .btn-approve {
+  color: green; }
+
+.admin-dashboard .btn-disapprove {
+  color: tomato; }
 
 /*# sourceMappingURL=style.css.map */

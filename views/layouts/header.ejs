@@ -43,9 +43,29 @@
           </div>
         </form>
         <div>
-          <a class="btn btn-login" href="/users/login">Login</a>
-          <a class="btn btn-register" href="/users/register">Register</a>
+          <% if(user){ %>
+          <div class="flex align-center">
+            <div class="dropdown">
+              <button class="btn dropbtn"><%= user.displayName %></button>
+              <div class="dropdown-content">
+                <a href="#">Profile</a>
+                <a href="#">Orders</a>
+                <a href="#">Logout</a>
+              </div>
+            </div>
+            <a class="head-links cart" href="">
+              <span class="quantity">1</span>
+              <img src="/images/icons/cart.svg" width="24px" alt="Cart" />
+            </a>
+          </div>
+          <% } else { %>
+          <div>
+            <a class="btn btn-login" href="/users/login">Login</a>
+            <a class="btn btn-register" href="/users/register">Register</a>
+          </div>
+          <% } %>
         </div>
       </nav>
     </header>
-
+  </body>
+</html>

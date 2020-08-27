@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="login flex flex-col align-center justify-center">
+    <% if(errors && errors.length > 0){ %>
+    <ul class="errors">
+      <% errors.forEach((error,index) => { %>
+      <li class="error"><span><%= (index + 1) %>.</span> <%= error %></li>
+      <% }) %>
+    </ul>
+
+    <% } %>
+    <div></div>
+    <% if(message && message.length > 0){ %>
+    <div>
+      <p class="msg"><%= message %></p>
+    </div>
+    <% } %>
+    <div>
+      <a href="/">Decart Admin Login</a>
+    </div>
+    <section class="login-section flex flex-col justify-center align-center">
+      <h3>
+        Sign in with credentials (Admin Login)
+      </h3>
+      <form class="login-form" action="/admins/login" method="POST">
+        <div class="form-group">
+          <label for="email">EMAIL</label>
+          <input type="email" id="email" name="email" placeholder="Email" />
+        </div>
+        <div class="form-group">
+          <label for="password">PASSWORD</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+          />
+        </div>
+        <button class="btn btn-login" type="submit">login</button>
+      </form>
+    </section>
+  </body>
+</html>

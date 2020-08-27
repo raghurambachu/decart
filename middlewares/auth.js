@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const passport = require("passport");
 
 async function generateSaltAndHash(password) {
   try {
@@ -16,7 +17,34 @@ function verifyPassword(password, hash, isVerified) {
   });
 }
 
+function verifyIfUser(req, res, next) {
+  if (req.user && req.user.role === "user") {
+    next();
+  } else {
+    return res.redirect("/users/login");
+  }
+}
+
+function verifyIfVendor(req, res, next) {
+  if (req.user && req.user.role === "vendor") {
+    next();
+  } else {
+    return res.redirect("/vendors/login");
+  }
+}
+
+function verifyIfAdmin(req, res, next) {
+  if (req.user && req.user.role === "admin") {
+    next();
+  } else {
+    return res.redirect("/admins/login");
+  }
+}
+
 module.exports = {
   verifyPassword,
   generateSaltAndHash,
+  verifyIfUser,
+  verifyIfVendor,
+  verifyIfAdmin,
 };

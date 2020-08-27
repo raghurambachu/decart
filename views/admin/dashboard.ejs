@@ -1,0 +1,50 @@
+<%- include("layouts/header.ejs") %>
+<div class="admin-dashboard">
+  <% if(vendors && vendors.length) { %>
+  <table class="table table-striped">
+    <legend>Approve Vendors</legend>
+    <thead>
+      <tr>
+        <th scope="col">Sr. No</th>
+        <th scope="col">Display Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Joined On</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% vendors.forEach((vendor,index) => { %>
+      <tr>
+        <th scope="row"><%= index + 1 %></th>
+        <td><%= vendor.displayName %></td>
+        <td><%= vendor.email %></td>
+        <td><%= vendor.createdAt %></td>
+        <td>
+          <% if(vendor.isAdminVerified) { %>
+          <span>Approved</span>
+          <% } else { %>
+          <span>Pending</span>
+          <% } %>
+        </td>
+        <td>
+          <% if(!vendor.isAdminVerified) { %>
+          <a
+            class="btn-action btn-approve"
+            href="/admins/vendors/approve/<%= vendor._id %>"
+            >Approve</a
+          >
+          <% } else { %>
+          <span>N/A</span>
+          <% } %>
+        </td>
+      </tr>
+      <% } ) %>
+    </tbody>
+  </table>
+  <% } else { %>
+  <p>No Vendors to Approve</p>
+  <% } %>
+</div>
+
+<%- include("layouts/footer.ejs") %>

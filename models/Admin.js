@@ -31,7 +31,7 @@ const adminSchema = new Schema(
     hash: String,
     role: {
       type: String,
-      default: "vendor",
+      default: "admin",
     },
     blockedUsers: [
       {
