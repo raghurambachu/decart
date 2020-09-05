@@ -48,25 +48,25 @@ router.post(
 
 // Route for creating admin only for once;
 // Should be post but using get
-// router.get("/register", async function (req, res, next) {
-//   const password = process.env.ADMIN_PASSWORD;
-//   try {
-//     const { salt, hash } = await generateSaltAndHash(password);
-//     const createAdmin = {
-//       username: "raghurambachu",
-//       displayName: "Raghuram",
-//       email: "1993raghuram@gmail.com",
-//       mobile: "9869483038",
-//       salt,
-//       hash,
-//       role: "admin",
-//     };
-//     const admin = await Admin.create(createAdmin);
-//     res.send("Admin created successully.");
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+router.get("/register", async function (req, res, next) {
+  const password = process.env.ADMIN_PASSWORD;
+  try {
+    const { salt, hash } = await generateSaltAndHash(password);
+    const createAdmin = {
+      username: "raghurambachu",
+      displayName: "Raghuram",
+      email: "1993raghuram@gmail.com",
+      mobile: "9869483038",
+      salt,
+      hash,
+      role: "admin",
+    };
+    const admin = await Admin.create(createAdmin);
+    res.send("Admin created successully.");
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.get("/vendors/approve/:vendorId", auth.verifyIfAdmin, async function (
   req,
