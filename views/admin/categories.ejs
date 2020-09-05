@@ -1,0 +1,56 @@
+<%- include("layouts/header.ejs") %>
+<% if(message  && message.length) { %>
+    <div class="message alert alert-warning alert-dismissible fade show" role="alert">
+    <strong> <%= message %></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+<% } %>
+<div class="categories">
+    <section class="left-side">
+        <form action="/admins/categories/<%= admin._id %>" method="POST">
+            <div class="form-group">
+                <label for="category-name">Category Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="category-name form-control"
+                  id="category-name"
+                  placeholder="Enter product name"
+                />
+            </div>
+            <input type="hidden" name="createdBy" value="<%= admin._id %>">
+            <input type="submit" class="btn btn-secondary">
+        </form>
+    </section>
+    <section class="right-side">
+        <% if(categories && categories.length) { %>
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Sr. No</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Created By</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% categories.forEach((category,index) => { %>
+                        <tr>
+                            <td scope="row">
+                                <%= index + 1 %>
+                            </td>
+                            <td><%= category.name %></td>
+                            <td><%= category.createdBy.displayName %></td>
+                            <td> <a href="/admins/categories/delete/<%= category._id  %>">Delete</a>  </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+              </table>
+        <% } else { %>
+            <p>No categories found. Create a category.</p>
+        <% } %>
+    </section>
+</div>
+<%- include("layouts/footer.ejs") %>

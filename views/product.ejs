@@ -1,0 +1,122 @@
+<%- include("layouts/header.ejs") %>
+    <div class="product-page">
+        <section class="image-section flex flex-col align-center">
+            <div class="images flex">
+                <div class="left-images ">
+   
+                    <div class="small-img-container">
+                        <% product.images.forEach(image => { %>
+                            <div class="small-img">
+                                <img class="small-image" src=<%= image %> alt="">
+                            </div>
+                        <% }) %>
+                    </div>
+                   
+                </div>
+                <div class="right-image">
+                    <div class="favorites">
+                        <% if(user && user.role === "user" && user.favorited.length && user.favorited.includes(product._id.toString())) { %>
+                            <div class="like">
+                                <a href="/users/product/<%= product._id %>/unlike">
+                                    <img width="25" height="25" src="/images/icons/like.svg" alt="Like">
+                                </a>
+                            </div>
+                        <% } else { %>
+                            <div class="unlike">
+                                <a href="/users/product/<%= product._id %>/like">
+                                    <img width="25" height="25" src="/images/icons/unlike.svg" alt="Unlike">
+                                </a>
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="large-img">
+                        <img src=<%= product.images[0] %> alt="img-selected">
+                    </div>
+                </div>
+            </div>
+            <div class="add-to-cart-container">
+                <a class="btn btn-warning flex align-center" href="/users/cart/<%= product._id %>"><span>Add to Cart</span> <img class="cart" src="/images/icons/cart.svg" alt="Cart"></a>
+            </div>
+        </section>
+        <section class="detail-section">
+           <div class="category">
+                <a href="/">Home</a> &gt; <a href="/category"><%= product.category %></a>
+           </div>
+           <div class="sold-by">
+                <h4><%= product.createdBy.displayName %>  <span class="seller">(SELLER)</span></h4>
+           </div>
+           <div class="product-name">
+                <h2><%= product.name %></h2>
+           </div>
+           <div class="price flex">
+                <h2 class="selling-price">
+                    &#8377; <%= product.sellingPrice %>
+                </h2>
+                <h4 class="list-price">
+                    &#8377; <%= product.listPrice %>
+                </h4>
+                <p class="discount">
+                    <%= (((product.listPrice - product.sellingPrice)/product.listPrice) * 100).toFixed(0) %>% off <span class="msg">(limited period offer. Hurry up    )</span>
+            </p>
+           </div>
+
+           <div class="warranty">
+                Manufacturer warranty : <%= product.warranty %> months
+           </div>
+           <div class="policy">
+                <div>
+                    Services
+                </div>
+                <p>&#10004; 30days <%= product.policy %> policy</p>
+                <p>&#10004; Cash on delivery available.</p>
+                <% if(product.easyPayAvailable) { %>
+                    <p>&#10004; Easy pay available
+                    </p>
+                <% } %>
+           </div>
+           <div class="product-description">
+                <%- product.markup %>
+           </div>
+
+           <section class="reviews-section">
+              <% if(user){ %>
+                <% if(reviews) { %>
+                    <h3>
+                        Reviews
+                    </h3>
+                    <% reviews.forEach(review =>{ %>
+                        <div class="review">
+                            <h3>By - <%= review.userId.displayName %></h3>
+                            <p><%= review.review %></p>
+                            <%  if(review.userId._id.toString() === user._id.toString()){ %>
+                                <a class="delete-review" href='/users/product/<%= product.slug %>/review/<%= review._id %>/delete' >Delete</a>
+                            <% } %> 
+                        </div>
+                    <% })  %>
+                    <% if(!userHasReviewed){  %>
+                            <form
+                            class="add-review-form"
+                            action="/users/product/<%= product._id %>/review/<%= product.slug %>"
+                            method="POST"
+                          >
+                            <textarea
+                              name="review"
+                             
+                              placeholder="Add review"
+                              class="review-textarea"
+                             
+                            ></textarea>
+                            <button class="btn btn-add-review">Add Review</button>
+                          </form>
+                               
+                    <% } %>
+              <% } %>
+              
+              <% }else { %>
+                <h3>Log in to write a review.</h3>
+              <% } %>
+           </section>
+        </section>
+
+    </div>
+<%- include("layouts/footer.ejs") %>

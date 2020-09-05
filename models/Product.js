@@ -91,14 +91,14 @@ const productSchema = new Schema(
       default: "return",
       enum: ["return", "replace", "none"],
     },
-    stock: {
+    maxQty: {
       type: Number,
       required: true,
       validate: {
         validator: function (v) {
           return Number.isInteger(v);
         },
-        message: (prop) => `Specify the warranty in months`,
+        message: (prop) => `Specify the max-qty`,
       },
     },
   },

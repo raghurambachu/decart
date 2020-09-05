@@ -1,0 +1,51 @@
+<%- include("layouts/header.ejs") %>
+    <div class="category-display container">
+        <div class="left flex flex-col">
+           
+            <div class="filters">
+                <form action="/category/<%= title %>" method="GET">
+                     <label for="filter">Filter</label>
+                     <select name="filter" id="filter">
+                         <option value="newest" <%= filter == "newest" ? "selected" : ""  %>>Newest</option>
+                         <option value="price-desc"  <%= filter == "price-desc" ? "selected" : ""  %> >Price: Low to High</option>
+                         <option value="price-asc"  <%= filter == "price-asc" ? "selected" : ""  %> >Price: High to Low</option>
+                     </select>
+                     <input type="submit" class="btn btn-filter" value="Submit">
+                </form>
+            </div>
+         
+
+        </div>
+        <div class="right">
+            <% if(products && products.length){ %>
+                <div class="cards flex">
+                <% products.forEach(product => { %>
+                  <article class="card">
+                                <div class="card-img">
+                                    <a class="product-card" href="/product/<%= product.slug %>">
+                                        <img src=<%= product.images[0] %> alt="">
+                                    </a>
+                                </div>
+                                <div class="card-content">
+                                    <h3>
+                                        <%= product.name %>
+                                    </h3>
+                                    <div class="price">
+                                        <h2 class="selling-price">
+                                            &#8377; <%= product.sellingPrice %>
+                                            <span class="list-price">
+                                                &#8377; <%= product.listPrice %>
+                                            </span>
+                                        </h2>
+                                    </div>
+                                    <p class="discount">
+                                        <%= (((product.listPrice - product.sellingPrice)/product.listPrice) * 100).toFixed(0) %>% off
+                                    </p>
+                                </div>
+                           </article>
+                <% }) %>
+                </div>
+            <% } %>
+        </div>
+    </div>
+<%- include("layouts/footer.ejs") %>

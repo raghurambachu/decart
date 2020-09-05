@@ -15,7 +15,7 @@ let options = {
 async function verifyUser(email, password, done) {
   const admin = await Admin.findOne({ email });
   const vendor = await Vendor.findOne({ email });
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email })
 
   if (admin) {
     // Check if password matches
@@ -157,7 +157,7 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(async function (id, done) {
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate("cart").exec();
   const vendor = await Vendor.findById(id);
   const admin = await Admin.findById(id);
   if (user) {

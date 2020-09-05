@@ -2,6 +2,11 @@
 <html>
   <head>
     <title><%= title %></title>
+    <% if(title === "Decart"){ %>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">  
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+    <% } %>
+
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"
@@ -12,14 +17,14 @@
     <header>
       <nav class="container flex space-between align-center">
         <h2>
-          <a href="#">Decart - Explore Unexplored</a>
+          <a href="/">Decart - Explore The Unexplored</a>
         </h2>
-        <form action="/" method="GET">
+        <form action="/search" method="GET">
           <div class="form-group flex align-center">
             <input
               class="search-product"
               type="text"
-              name="product"
+              name="s"
               placeholder="Search products"
             />
             <button class="btn btn-search" type="submit">
@@ -43,18 +48,18 @@
           </div>
         </form>
         <div>
-          <% if(user){ %>
+          <% if(user && user.role === "user"){ %>
           <div class="flex align-center">
             <div class="dropdown">
               <button class="btn dropbtn"><%= user.displayName %></button>
               <div class="dropdown-content">
-                <a href="#">Profile</a>
-                <a href="#">Orders</a>
-                <a href="#">Logout</a>
+                <a href="/users/favorites/me">Favorites</a>
+                <a href="/users/orders/me">Orders</a>
+                <a href="/users/logout">Logout</a>
               </div>
             </div>
-            <a class="head-links cart" href="">
-              <span class="quantity">1</span>
+            <a class="head-links cart" href="/users/cart/me">
+              <span class="quantity"><%= user.cart.items.length %></span>
               <img src="/images/icons/cart.svg" width="24px" alt="Cart" />
             </a>
           </div>
@@ -67,5 +72,4 @@
         </div>
       </nav>
     </header>
-  </body>
-</html>
+ 

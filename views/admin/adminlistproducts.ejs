@@ -1,0 +1,65 @@
+<%- include("layouts/header.ejs") %>
+<% if(message  && message.length) { %>
+    <div class="message alert alert-warning alert-dismissible fade show" role="alert">
+    <strong> <%= message %></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+<% } %>
+<div class="all-products admin-list-products">
+    <section class="cards flex">
+        <% if(products){ %>
+            <% products.forEach(product => { %>
+                <article class="card">
+                    <div class="card__info-hover flex">
+                       <% if(product.isListed){ %>
+                        <a class="btn btn-secondary ">
+                            Delist
+                        </a>
+                       <% } else { %>
+                        <a class="btn btn-secondary ">
+                            Publish
+                        </a>
+                       <% } %>
+                       <a href="/admins/banner/<%= product.slug %>" class="btn btn-secondary ml-3"
+                       >Add Banner</a>
+                       <div class="favorited-by ml-3 mt-1 flex  justify-center">
+                           <span>
+                               <%= product.isFavorited.length %>
+                           </span>
+                           <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <path d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7" />
+                              </svg>
+                           </div>
+                       </div>
+                    </div>
+                    <div class="card__img">
+                        <img src=<%= product.images[0]  %> alt="<%= product.slug %>" >
+                    </div>
+                    <a href="#" class="card_link">
+                       <div class="card__img--hover">
+                           <img src=<%= product.images[1] %> alt="2">
+                       </div>
+                     </a>
+                    <div class="card__info">
+                      <span class="card__price flex align-center"> 
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-currency-rupee" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z"/>
+                            <path d="M18 6h-11h3a4 4 0 0 1 0 8h-3l6 6" />
+                            <line x1="7" y1="10" x2="18" y2="10" />
+                          </svg>
+                          <span> <%= product.sellingPrice  %></span>
+                        </span>
+                      <span class="card__category"><%= product.category %></span>
+                      <h4 class="card__title"><%= product.name %></h4>
+                        
+                    </div>
+                  </article>
+           <% }) %>
+        <% } %>
+    </section>
+</div>
+<%- include("layouts/footer.ejs") %>

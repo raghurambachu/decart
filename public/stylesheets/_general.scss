@@ -11,6 +11,7 @@ body {
   background: $primary;
 }
 
+
 a {
   color: whitesmoke;
   text-decoration: none;
@@ -21,12 +22,20 @@ a {
   margin: 0 auto;
 }
 
+strong{
+  font-weight: bold;
+}
+
 .flex {
   display: flex;
 }
 
 .flex-col {
   flex-direction: column;
+}
+
+.flex-wrap{
+  flex-wrap: wrap;
 }
 
 .space-between {
@@ -113,3 +122,4 @@ input {
   color: rgba($primary, 0.5);
   text-decoration: none;
 }
+

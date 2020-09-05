@@ -1,0 +1,87 @@
+<%- include("layouts/header.ejs") %>
+<% if(message  && message.length) { %>
+    <div class="message alert alert-warning alert-dismissible fade show" role="alert">
+    <strong> <%= message %></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+<% } %>
+
+<div class="banners">
+    <section class="banner-left">
+        <% if(product) { %>
+            <form enctype="multipart/form-data" action="/admins/banner/<%= product._id %>" method="POST">
+                <input type="hidden" name="productId" value="<%= product._id %>">
+                <input type="hidden" name="slug" value="<%= product.slug %>">
+                <div class="form-group">
+                    <label for="product-title">Product Name</label>
+                    <input
+                      type="text"
+                     
+                      class="product-title form-control"
+                      id="product-title"
+                      value="<%= product.name %>"
+                      disabled
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="product-desc">Product Description</label>
+                    <textarea
+                      type="text"
+                     
+                      class="product-desc form-control"
+                      id="product-desc"
+                      
+                      disabled
+                    ><%= product.description.slice(0,200) %>...</textarea>
+                </div>
+
+                <div class="input-group mb-3 mt-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="fileUpload">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" name="banner" class="custom-file-input" id="fileUpload" aria-describedby="inputGroupFileAddon01">
+                      <label class="custom-file-label" for="fileUpload">Choose file</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-secondary">Add Banner</button>
+            </form>
+        <% } %>
+    </section>
+    <section class="banner-right">
+       <% if(allBanners && allBanners.length) { %>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Sr. No</th>
+                <th scope="col">Product</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+               <% allBanners.forEach((banner,index) => { %>
+                    <tr>
+                        <td>
+                            <%= index + 1 %>
+                        </td>
+                        <td>
+                            <%= banner.productId.name %>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="/admins/banner/delete/<%= banner._id %>">Delete</a>
+                        </td>
+                    </tr>
+               <% }) %>
+            </tbody>
+          </table>
+        <% allBanners.forEach %> 
+       <% } %>
+    </section>
+</div>
+
+
+
+<%- include("layouts/footer.ejs") %>

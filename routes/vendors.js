@@ -1,9 +1,16 @@
 const express = require("express");
+const slugify = require("slugify");
 const passport = require("passport");
 const router = express.Router();
 const auth = require("../middlewares/auth");
 const Vendor = require("../models/Vendor");
 const Admin = require("../models/Admin");
+const Product = require("../models/Product");
+const Category = require("../models/Category")
+const cloudinary = require("cloudinary");
+const { cloudinaryConfig } = require("../services/cloudinary");
+const { multerUploads, dataUris } = require("../services/multer");
+
 const {
   transporter,
   sendAdminVerificationPending,
@@ -16,9 +23,12 @@ const {
   verifyVendorFormRules,
   validateVerifyVendorFormRules,
 } = require("../utils/vendor-validator");
+const uploadFiles = require("../services/multer");
+const { create } = require("../models/Vendor");
 
-router.get("/", function (req, res, next) {
-  res.render("vendor/dashboard", { title: "Dashboard" });
+router.get("/", auth.verifyIfVendor, function (req, res, next) {
+  const vendor = req.user;
+  res.render("vendor/dashboard", { title: "Dashboard", vendor });
 });
 
 router.get("/register", function (req, res, next) {
@@ -92,8 +102,9 @@ router.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/vendors/login" }),
   function (req, res) {
-    console.log(req.user);
-    res.redirect("/vendors/");
+
+    res.redirect(req.session.returnTo || "/vendors/");
+    delete req.session.returnTo
   }
 );
 
@@ -169,5 +180,76 @@ router.post(
     return res.redirect("/vendors/login");
   }
 );
+
+router.get("/add", auth.verifyIfVendor, async function (req, res, next) {
+  try{
+    const vendor = req.user;
+    const categories = await Category.find()
+    res.render("vendor/addproduct", { title: "Add Product",categories ,vendor });
+
+  } catch(err){
+    next(err)
+  }
+});
+
+router.post(
+  "/add/:vendorId",
+  auth.verifyIfVendor,
+  cloudinaryConfig,
+  multerUploads,
+  async function (req, res, next) {
+    const productBody = req.body;
+
+    try {
+      let files = dataUris(req);
+      files = files.map((file) => file.content);
+      // Upload multiple files one after other
+      const urls = [];
+      for (let i = 0; i < files.length; i++) {
+        const image = await cloudinary.v2.uploader.upload(files[i]);
+        urls.push(image.url);
+      }
+      const createProduct = {};
+      createProduct.isListed = false;
+      createProduct.name = productBody.title;
+      createProduct.slug = slugify(productBody.title);
+      createProduct.category = productBody.category;
+      createProduct.easyPayAvailable = productBody.easyPayAvailable === "true" ? true :false;
+      createProduct.policy = productBody.policy
+      createProduct.description = productBody.description;
+      createProduct.markup = productBody.markup;
+      createProduct.quantity = productBody.quantity;
+      createProduct.listPrice = productBody.listPrice;
+      createProduct.sellingPrice = productBody.sellingPrice;
+      createProduct.maxQty = productBody.maxQty;
+      createProduct.warranty = productBody.warranty;
+      createProduct.images = urls;
+      createProduct.createdBy = req.params.vendorId;
+
+      const product = await Product.create(createProduct);
+      req.flash("message", "Product added successfully");
+      return res.redirect("/vendors/add");
+    } catch (err) {
+      next(err)
+    }
+  }
+);
+
+router.get("/products",auth.verifyIfVendor,async function(req,res,next){
+  const vendor = req.user;
+  try{
+    
+    const products = await Product.find({createdBy:vendor._id});
+    res.render("vendor/allproducts",{title:"All Products",products,vendor})
+  } catch(err){
+    next(err)
+  }
+})
+
+router.get("/logout", auth.verifyIfVendor, function (req, res, next) {
+  req.logout();
+  req.flash("message", "Logged out Successfully");
+  res.redirect("/vendors/login");
+});
 
 module.exports = router;

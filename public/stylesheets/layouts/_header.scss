@@ -1,8 +1,9 @@
 header {
   background: $secondary;
-  position: absolute;
+  position: fixed;
+  z-index: 100;
   width: 100%;
-  padding: 0.8rem;
+  padding:0.5rem 0.8rem;
   h2 {
     font-weight: 500;
   }

@@ -1,1 +1,83 @@
-<%- include("layouts/header.ejs") %> <%- include("layouts/footer.ejs") %>
+<%- include("layouts/header.ejs") %>
+    <div class="landing-page">
+        <div class="categories-lp container flex">
+            <% if(categories && categories.length){ %>
+                <% categories.forEach(category => { %>
+                    <span>
+                        <a href="/category/<%= category.name %>">
+                            <%= category.name %>
+                        </a>
+                    </span>
+                <% }) %>
+            <% } %>
+        </div>
+       <main>
+           <% if(banners && banners.length){ %>
+            <section class="hero-section">
+                <div class="owl-carousel owl-theme">
+                  <% banners.forEach(banner => { %>
+                    <div class="item">
+                      <a href="/product/<%= banner.productId.slug %>">
+                        <img src=<%= banner.banner %> alt="<%= banner.productId.name %>">
+                      </a>
+                    </div>
+                  <% }) %>
+                </div>
+            </section>
+           <% } %>
+
+           <section class="products-display container">
+                <div class="cards flex">
+                    <% if(products){ %>
+                        <% products.forEach(product => { %>
+                            <article class="card">
+                                <div class="card-img">
+                                    <a class="product-card" href="/product/<%= product.slug %>">
+                                        <img src=<%= product.images[0] %> alt="">
+                                    </a>
+                                </div>
+                                <div class="card-content">
+                                    <h3>
+                                        <%= product.name %>
+                                    </h3>
+                                    <div class="price">
+                                        <h2 class="selling-price">
+                                            &#8377; <%= product.sellingPrice %>
+                                            <span class="list-price">
+                                                &#8377; <%= product.listPrice %>
+                                            </span>
+                                        </h2>
+                                    </div>
+                                    <p class="discount">
+                                        <%= (((product.listPrice - product.sellingPrice)/product.listPrice) * 100).toFixed(0) %>% off
+                                    </p>
+                                </div>
+                           </article>
+                       <% }) %>
+                    <% } %>
+                </div>
+           </section>
+       </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            dots:true,
+            autoplay:true,
+            dotsEach:true,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:1
+                },
+                1000:{
+                    items:1
+                }
+            }
+        })
+    </script>
+<%- include("layouts/footer.ejs") %>

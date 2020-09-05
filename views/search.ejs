@@ -1,0 +1,36 @@
+<%- include("layouts/header.ejs") %>
+    <section class="search-page container">
+        <h1>You have searched for : <%= searchTerm %> </h1>
+        <div class="cards flex">
+            <% if(products && products.length){ %>
+                <% products.forEach(product => { %>
+                    <article class="card">
+                        <div class="card-img">
+                            <a class="product-card" href="/product/<%= product.slug %>">
+                                <img src=<%= product.images[0] %> alt="">
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <h3>
+                                <%= product.name %>
+                            </h3>
+                            <div class="price">
+                                <h2 class="selling-price">
+                                    &#8377; <%= product.sellingPrice %>
+                                    <span class="list-price">
+                                        &#8377; <%= product.listPrice %>
+                                    </span>
+                                </h2>
+                            </div>
+                            <p class="discount">
+                                <%= (((product.listPrice - product.sellingPrice)/product.listPrice) * 100).toFixed(0) %>% off
+                            </p>
+                        </div>
+                   </article>
+               <% }) %>
+            <% } else { %>
+                <h2>There are no products with this name. Try Searching with some other keyword.</h2>
+            <% } %>
+        </div>
+    </section>
+<%- include("layouts/footer.ejs") %>

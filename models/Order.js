@@ -6,38 +6,13 @@ const orderSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  items: [
+  items: 
     {
-      productId: {
-        type: Schema.Types.ObjectId,
-        ref: "Product",
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        required: true,
-        validate: {
-          validator: function (v) {
-            return Number.isInteger(v);
-          },
-          message: (prop) => `Quantity should be an integer value`,
-        },
-      },
-      razorPayId: {
-        type: String,
-        required: true,
-      },
-      transactionStatus: {
-        type: String,
-        enum: ["success", "failure"],
-      },
-      totalSum: {
-        type: Number,
-        required: true,
-      },
-    },
-  ],
-});
+      type:Schema.Types.ObjectId,
+      ref:'Item'
+    }
+},{timestamps:true});
 
 const Order = mongoose.model("Order", orderSchema);
 module.exports = Order;
+

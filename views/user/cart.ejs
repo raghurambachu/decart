@@ -1,0 +1,132 @@
+<%- include("../layouts/header.ejs") %>
+<div class="my-cart container">
+    <section class="cart-left">
+        <div class="cart-header">
+            <h3 class="cart-title">
+                My Cart (<%= cart &&  cart.items.length  %>)
+            </h3>
+            <div class="cart-items">
+                <% if(cart.items && cart.items.length ) { %>
+                    <% cart.items.forEach(cartItem => { %>
+                        <article class="cart-item">
+                            <div class="cart-item-top flex space-between">
+                                <div class="cart-item-image">
+                                    <a href="/product/<%= cartItem.productId.slug %>">
+                                        <img width="180" height="150" class="cart-item-img" src=<%= cartItem.productId.images[0]  %> alt="<%= cartItem.productId.name %>">
+                                    </a>
+                                </div>
+                                <div class="cart-item-description ">
+                                    <div class="cart-item-title">
+                                        <% const title = cartItem.productId.name.split(" ") %>
+                                        <h3 class="cart-item-title-top">
+                                                <%= title.slice(0,6).join(" ") %>
+                                        </h3>
+                                        <h4 class="cart-item-title-bottom">
+                                            <%= title.slice(6).join(" ") %>
+                                        </h4>
+                                    </div>
+                                    <p class="cart-item-seller">
+                                        Seller : <%= cartItem.productId.createdBy.displayName %>
+                                        <span>&#10004; Decart Assured</span>
+                                    </p>
+                                    <div class="cart-item-price flex">
+                                        <h2 class="selling-price">
+                                            &#x20B9; <%= cartItem.productId.sellingPrice %>
+                                        </h2>
+                                        <p class="list-price">
+                                            &#x20B9; <%= cartItem.productId.listPrice %>
+                                        </p>
+                                        <% if(cartItem.productId.easyPayAvailable){ %>
+                                            <p class="easy-pay">Easy Pay Available</p>
+                                        <% } %>
+                                    </div>
+                                    <div class="cart-item-quantity flex ">
+                                        <div class="add">
+                                            <a href="/users/cart/me/add/qty/<%= cartItem.productId._id %>" class="btn btn-add-qty">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z"/>
+                                                    <circle cx="12" cy="12" r="9" />
+                                                    <line x1="9" y1="12" x2="15" y2="12" />
+                                                    <line x1="12" y1="9" x2="12" y2="15" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <p>Quantity : <%= cartItem.quantity %></p>
+                                        <div class="remove">
+                                            <a href="/users/cart/me/remove/qty/<%= cartItem.productId._id %>" class="btn btn-remove-qty">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-minus" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z"/>
+                                                    <circle cx="12" cy="12" r="9" />
+                                                    <line x1="9" y1="12" x2="15" y2="12" />
+                                                  </svg>
+                                            </a>
+                                        </div>
+                                        <a href="/users/cart/me/delete/<%= cartItem.productId._id %>" class="btn btn-delete">
+                                            Remove
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="cart-item-delivery">
+                                    Will be delivered in 7 days
+                                </div>
+                            </div>
+                        </article>
+                    <% }) %>
+                <% } else { %>
+                    <p>No items in Cart</p>
+                <% } %>
+            </div>
+        </div>
+       
+    </section>
+    <section class="cart-right">
+        <% if(cart && cart.items.length) { %>
+            <div class="price-summary">
+                <h3 class="title">Price Details</h3>
+                <div class="price-details">
+                    <div class="flex space-between">
+                        <p>
+                            Price (<%= cart.items.length %> item)
+                        </p>
+                        <p class="sum-price">
+                            &#x20B9; <% const sumPrice = cart.items.reduce((sum,item) =>  sum += item.productId.sellingPrice * item.quantity ,0) %>
+                            <%= sumPrice %>
+                        </p>
+                    </div>
+                    <div class="delivery-charges flex space-between">
+                        <p>
+                            Delivery charges
+                        </p>
+                        <p>
+                            <%= sumPrice > 499 ? "Free" : `&#x20B9; 40` %>
+                        </p>
+                    </div>
+                    <div class="total">
+                        <div class="flex space-between">
+                            <p>
+                                Total Amount
+                            </p>
+                            <p>
+                                &#x20B9; <%= sumPrice > 499 ? sumPrice : sumPrice + 40 %>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <% const listPrice = cart.items.reduce((sum,item) => sum += item.productId.listPrice * item.quantity ,0) %>
+                        You wil save &#x20B9; <%= listPrice - sumPrice %>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </section>
+    <% if(cart && cart.items.length) { %>
+        <div class="cart-footer">
+            <form class="place-order" action="/users/cart/me/order" method="POST">
+                <input type="hidden" name="cart" value="<%= cart._id %>">
+                <input type="hidden" name="total" value="<%=  cart.items.reduce((sum,item) =>  sum += item.productId.sellingPrice * item.quantity ,0) %>">
+                <input type="submit" value="Place Order" class="btn btn-order">
+            </form>
+        </div>
+    <% } %>
+</div>
+<%- include("../layouts/footer.ejs") %>

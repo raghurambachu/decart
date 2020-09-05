@@ -1,0 +1,170 @@
+<%- include("layouts/header.ejs") %>
+
+<div class="add-product">
+  <form action="" class="add-product-form">
+    <div class="form-group">
+      <label for="product-title">Product Name</label>
+      <input
+        type="text"
+        name="title"
+        class="product-title form-control"
+        id="product-title"
+        placeholder="Enter product name"
+      />
+    </div>
+    <div class="form-group">
+      <p>Product Description</p>
+      <input type="hidden" name="markup" />
+      <input type="hidden" name="description" />
+      <div id="editor"></div>
+    </div>
+    <div class="form-group column">
+      <label for="quantity">Quantity</label>
+      <input
+        type="number"
+        name="quantity"
+        class="quantity form-control"
+        id="quantity"
+        placeholder="Enter quantity in integer format"
+      />
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="list-price">List Price</label>
+        <input
+          type="text"
+          class="form-control list-price"
+          id="list-price"
+          placeholder="List price"
+          name="listPrice"
+          required
+        />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="selling-price">Selling Price</label>
+        <input
+          type="text"
+          class="form-control selling-price"
+          id="selling-price"
+          placeholder="Selling Price"
+          name="sellingPrice"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="max-qty">Maximum Quantity</label>
+        <input
+          type="number"
+          class="form-control max-qty"
+          id="max-qty"
+          placeholder="Max Quantity a user can purchase"
+          name="maxQty"
+          required
+        />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="warranty">Warranty</label>
+        <input
+          type="number"
+          class="form-control warranty"
+          id="warranty"
+          placeholder="Warranty"
+          name="warranty"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+          <label  for="category">Options</label>
+          <select name="category" class="custom-select" id="category">
+            <option value="" selected>Choose...</option>
+         <% if(categories) { %>
+          <% categories.forEach(category => { %>
+            <option value="<%= category.name %>">
+              <%= category.name %>
+            </option>
+          <% }) %>
+         <% } %>
+          </select> 
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label  for="policy">Policy</label>
+        <select name="policy" class="custom-select" id="policy">
+          <option value="" selected>Choose...</option>
+          <option value="return">Return</option>
+          <option value="replace">Replace</option>
+          <option value="none">None</option>
+        </select> 
+      </div>
+    </div>
+
+
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label  for="easypay">Easy Pay Available</label>
+        <select name="easyPayAvailable" class="custom-select" id="easypay">
+          <option value="" selected>Choose...</option>
+          <option value="true">Available</option>
+          <option value="false">Not Available</option>
+        </select> 
+      </div>
+
+      
+      <div class="col-md-6 mb-3 mt-3">
+        
+        <label class="custom-file-label mt-3" for="fileUpload">Only supports JPG & PNG Images[Can upload multiple images]</label>
+        <div class="custom-file">
+          <input multiple type="file" onchange="validate_fileupload(this.value);" name="image" class="custom-file-input" id="fileUpload" aria-describedby="fileUpload">
+        </div>
+      </div>
+    </div>
+
+   
+
+    <button type="submit" class="btn btn-secondary">
+      Add Product
+    </button>
+  </form>
+</div>
+<script>
+  function validate_fileupload(fileName)
+{
+    var allowed_extensions = new Array("jpg","png","jpeg");
+    var file_extension = fileName.split('.').pop().toLowerCase(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+
+    for(var i = 0; i <= allowed_extensions.length; i++)
+    {
+        if(allowed_extensions[i]==file_extension)
+        {
+            return true; // valid file extension
+        }
+    }
+    alert("Please ensure you put the valid image for product")
+    return false;
+}
+
+  function validateFormData(form){
+    if(form["product-title"].value.trim() === "" ||
+     form["quantity"].value.trim() === "" ||
+     form["list-price"].value.trim() === "" ||
+     form["selling-price"].value.trim() === "" ||
+     form["max-qty"].value.trim() === "" ||
+     form["warranty"].value.trim() === "" ||
+     form["category"].value.trim() === "" ||
+     form["policy"].value.trim() === "" ||
+     form["easypay"].value.trim() === "" ){
+      
+      alert("Please ensure you fill all the fields.")
+      return false
+    }
+    return true
+  }
+</script>
+<%- include("layouts/footer.ejs") %>

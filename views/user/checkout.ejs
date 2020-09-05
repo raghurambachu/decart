@@ -1,0 +1,105 @@
+<%- include("../layouts/header.ejs") %>
+
+<section class="checkout-page container">
+    <div class="table-section">
+        <caption>Order Summary</caption>
+        <table >
+            <thead>
+              <tr>
+                <th scope="col">Sr. No</th>
+                <th scope="col">Item Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+
+                <% if(cart && cart.items.length) { %>
+                    <% cart.items.forEach((cartItem,index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= cartItem.productId.name.split(" ").slice(0,7).join(" ") %>...</td>
+                            <td><%= cartItem.quantity %></td>
+                            <td> &#x20B9; <%= cartItem.quantity * cartItem.productId.sellingPrice %></td>
+                        </tr>
+
+                    <% }) %>
+                <% } %>
+                <% if(cart && cart.items.length) { %>
+                    <tr>
+                        <td colspan="2">
+                            Order Id : <%= orderData.id %>
+                        </td>
+                        <td>
+                            Total :
+                        </td>
+                        <td>
+                            &#x20B9; <%=  total %>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+          </table>
+          <form action="/">
+            <input type="hidden" class="total-amount" value="<%= total %>" />
+            <input
+              type="hidden"
+              class="order-id"
+              name="orderId"
+              value="<%= orderData.id %>"
+            />
+            <btn class="btn  btn-checkout">
+               Make Payment
+            </btn>
+          </form>
+          
+    </div>
+</section>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    const checkoutBtn = document.querySelector(".btn-checkout");
+      checkoutBtn.addEventListener("click", function (e) {
+        const amount = document.querySelector(".total-amount").value * 100;
+        const options = {
+          key: "rzp_test_upd3MP4R5sA9yR",
+          amount,
+          currency: "INR",
+          name: "Decart Shopping Cart",
+          description: "Razor test transaction",
+          order_id: document.querySelector(".order-id").value,
+          handler: function (response) {
+            const razorpay_order_id = response.razorpay_order_id;
+            const razorpay_payment_id = response.razorpay_payment_id;
+            const razorpay_signature = response.razorpay_signature;
+            const razorpay = {
+              razorpay_order_id,
+              razorpay_payment_id,
+              razorpay_signature,
+            };
+            fetch("/users/payment/verify", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(razorpay),
+            })
+              .then((resp) => resp.json())
+              .then(function (data) {
+                console.log(data);
+                window.location.href = "/";
+              })
+              .catch(function (error) {
+                console.log("Request failed", error);
+              });
+          },
+          theme: {
+            color: "#227254",
+          },
+        };
+        const razorpay = new Razorpay(options);
+        razorpay.open();
+        e.preventDefault();
+      });
+</script>
+<%- include("../layouts/footer.ejs") %>
