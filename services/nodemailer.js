@@ -22,7 +22,7 @@ function sendCodeOnUserRegister(user) {
             </p>
             <h3>Verfication code : ${user.code}</h3>
             <br>
-            <a href="http://localhost:3000/users/verify/${user._id}">
+            <a href="https://decarts.herokuapp.com/users/verify/${user._id}">
                 Link to Verify your email
             </a>
 
@@ -64,7 +64,7 @@ function sendCodeOnVendorRegister(vendor) {
             </p>
             <h3>Verfication code : ${vendor.code}</h3>
             <br>
-            <a href="http://localhost:3000/vendors/verify/${vendor._id}">
+            <a href="https://decarts.herokuapp.com/vendors/verify/${vendor._id}">
                 Link to Verify your email
             </a>
 
