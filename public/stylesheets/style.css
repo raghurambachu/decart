@@ -562,11 +562,10 @@ header {
 .product-page {
   padding: 6rem 4.5rem;
   display: grid;
-  grid-column-gap: 1rem;
+  grid-column-gap: 2.5rem;
   grid-template-columns: 2fr 3fr;
   grid-template-areas: "imagesection detailsection"; }
   .product-page .image-section {
-    position: fixed;
     grid-area: imagesection; }
     .product-page .image-section .small-img-container {
       width: 100px; }

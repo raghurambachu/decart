@@ -153,11 +153,11 @@
 .product-page {
   padding: 6rem 4.5rem;
   display: grid;
-  grid-column-gap: 1rem;
+  grid-column-gap: 2.5rem;
   grid-template-columns: 2fr 3fr;
   grid-template-areas: "imagesection detailsection";
   .image-section {
-    position: fixed;
+    // position: fixed;
     grid-area: imagesection;
     .small-img-container {
       width: 100px;
