@@ -165,12 +165,12 @@
     .small-img {
       margin-bottom: 0.5rem;
     }
-    .right-image{
+    .right-image {
       position: relative;
     }
-    .favorites{
+    .favorites {
       position: absolute;
-      right:10%;
+      right: 10%;
       bottom: -18%;
     }
     .small-image {
@@ -197,7 +197,7 @@
   }
   .detail-section {
     grid-area: detailsection;
-    h3{
+    h3 {
       font-size: 1.2rem;
       font-weight: 700;
     }
@@ -253,7 +253,7 @@
 
     .product-description {
       margin-top: 2rem;
-      img{
+      img {
         width: 100%;
         object-fit: cover;
         height: 200px;
@@ -262,39 +262,38 @@
       }
     }
   }
-  .reviews-section{
-    margin-top:2.75rem ;
-    .review-textarea{
+  .reviews-section {
+    margin-top: 2.75rem;
+    .review-textarea {
       width: 100%;
       font-family: $font-family;
       padding: 0.75rem;
       font-size: 1rem;
-      min-height:100px ;
+      min-height: 100px;
     }
-    
-    .review{
+
+    .review {
       background: $primary;
       position: relative;
       padding: 1rem;
       box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.11);
-      h3{
+      h3 {
         font-size: 1.1rem;
         font-weight: bold;
       }
-      .delete-review{
+      .delete-review {
         position: absolute;
         top: 5%;
         right: 5%;
         font-weight: 500;
       }
-  
     }
-    .btn-add-review{
+    .btn-add-review {
       font-weight: bold;
-      background:#f79e00;
+      background: #f79e00;
       color: whitesmoke;
       padding: 0.75rem 1.75rem;
-      &:focus{
+      &:focus {
         outline: 0;
       }
     }
@@ -319,7 +318,7 @@
 
 .landing-page {
   .categories-lp {
-    padding: 5rem 0 0.5rem;
+    padding: 4rem 0 0.5rem;
     a {
       color: rgba($secondary, 0.7);
       margin-left: 1rem;
@@ -351,6 +350,7 @@
     width: 22.5%;
     text-align: center;
     background: #f3f3f3;
+    box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.11);
     img {
       height: 240px;
       object-fit: cover;
@@ -363,7 +363,7 @@
     }
     &:hover {
       transition: box-shadow 250ms ease-in-out;
-      box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.11);
+      box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.41);
     }
     .card-content {
       padding: 0.75rem;
@@ -416,6 +416,7 @@
       width: 22.5%;
       text-align: center;
       background: #f3f3f3;
+      box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.11);
       img {
         height: 240px;
         object-fit: cover;
@@ -428,7 +429,7 @@
       }
       &:hover {
         transition: box-shadow 250ms ease-in-out;
-        box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.11);
+        box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.41);
       }
       .selling-price {
         font-size: 1.25rem;
@@ -618,82 +619,78 @@
   }
 }
 
-.orders-page{
+.orders-page {
   padding: 6.5rem 0 0;
-  .order-item{
+  .order-item {
     padding: 1.5rem;
     box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.11);
     margin-bottom: 1rem;
     font-size: 0.9rem;
-    .order-header{
+    .order-header {
       border-bottom: 1px solid rgba($secondary, 0.2);
       padding-bottom: 0.75rem;
     }
-    h4{
+    h4 {
       font-weight: 300;
-      font-size:0.85rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
-     
     }
-    .order-hleft{
+    .order-hleft {
       width: 25%;
       justify-content: space-between;
-      
     }
-    gap{
-     width: 20%;
-     
+    gap {
+      width: 20%;
     }
-    h3{
+    h3 {
       font-size: 1.05rem;
       font-weight: 500;
       margin-bottom: 1.25rem;
     }
-    img{
+    img {
       margin-bottom: 0.75rem;
     }
-    .order-body{
+    .order-body {
       padding: 0.75rem 0;
       border-bottom: 1px solid rgba($secondary, 0.2);
     }
-    .prod-name{
+    .prod-name {
       margin-left: 1.5rem;
     }
-    .prod-link{
+    .prod-link {
       color: rgba($secondary, 0.7);
-
     }
-    .quantity{
+    .quantity {
       margin-left: 1.5rem;
       margin-top: -1.05rem;
     }
-    .obc-right{
+    .obc-right {
       font-size: 1.25rem;
       font-weight: 500;
     }
-    .order-footer{
+    .order-footer {
       margin: 0.5rem 0;
     }
-    
   }
 }
 
-.favorites-page,.search-page{
+.favorites-page,
+.search-page {
   padding-top: 6.5rem;
-  h1{
+  h1 {
     font-size: 1.75rem;
   }
-  h2{
+  h2 {
     font-size: 1.5rem;
   }
-  .cards{
+  .cards {
     flex-wrap: wrap;
   }
   .card {
     border-radius: 1rem;
     overflow: hidden;
     margin: 0.5%;
-    margin:0 1% ;
+    margin: 0 1%;
     margin-bottom: 1.5rem;
     width: 18.5%;
     text-align: center;
